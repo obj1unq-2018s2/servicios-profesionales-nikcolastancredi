@@ -1,0 +1,52 @@
+import profesionales.*
+
+describe " Test etapa 1"{
+	// Instanciar  objetos de la clase universidad y su seteo de variables
+	//var uniSanMartin = new Universidad (provincia = "BuenosAires" , honorariosRecomendados = 3500)
+	var uniRosario = new Universidad ( provincia = "SantaFe", honorariosRecomendados = 2800)
+	var uniCorriente = new Universidad (provincia = "Corriente", honorariosRecomendados = 4200)
+	var uniHurlingham = new Universidad (provincia = "BuenosAires", honorariosRecomendados = 8800)
+	
+	// Instanaciar objetos de las 3 clases de profesionales 	
+	var juana = new ProfesionalVinculado ()
+	var melisa = new ProfesionalAsociado()
+	var rocio = new ProfesionalLibre()
+	var luciana = new ProfesionalLibre()
+	
+	//Instanaciar objeto  de la clase  Empresa
+	var googleSA = new Empresa()
+	
+ 	fixture{
+ 		//Set Empleados
+		juana.universidad(uniRosario)
+		melisa.universidad(uniCorriente)
+		rocio.universidad(uniHurlingham)
+		rocio.remuneracion(5000)
+		rocio.lugaresTrabajables(["SantaFe","BuenosAires","Cordoba"])
+		luciana.universidad(uniRosario)
+		luciana.remuneracion(3200)
+		luciana.lugaresTrabajables(["SantaFe","EntreRios"])
+		//Set Empresa
+		googleSA.honorariosReferidos(3500)
+		googleSA.contratar(juana)
+		googleSA.contratar(melisa)
+		googleSA.contratar(rocio)
+		googleSA.contratar(luciana)
+		
+		
+	}
+	
+	test"Testiando a Google"{
+		assert.equals([rocio],googleSA.profesionalesCaros())
+		//assert.equals([uniCorriente,uniHurlingham,uniRosario],googleSA.universidadesFormadores())
+		assert.equals(juana,googleSA.profecionalMasBarato())
+		//assert.that(googleSA.estaCubierta("SantaFe"))
+		//assert.that(googleSA.estaCubierta("Cordoba"))
+		//assert.that(not googleSA.estaCubierta("Misiones"))
+		//assert.equals(2,googleSA.cuantosEstudioEn("uniRosario"))		
+		assert.equals(1,googleSA.cuantosEstudioEn("uniHurlingham"))
+		assert.equals(0,googleSA.cuantosEstudioEn("uniSanMartin"))
+		
+		
+	}
+}
